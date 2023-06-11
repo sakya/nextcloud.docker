@@ -9,7 +9,7 @@ Install Nextcloud in docker with mariadb, redis and cron.
 
    `openssl req -newkey rsa:4096 -x509 -sha512 -days 365 -nodes -out certificate.pem -keyout privatekey.pem`
 
-## Edit the docker-compose.yml and Caddyfile files
+## Edit docker-compose.yml and Caddyfile
 
 1. Set the port you want to use to access Nextcloud (in this example the port is 1201)
 
