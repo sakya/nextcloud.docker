@@ -20,7 +20,7 @@ Install Nextcloud in docker with mariadb, redis, cron and caddy.
      - 1201:1201
    ```
 
-   and int the `caddy/Caddyfile`
+   and in the `caddy/Caddyfile`
 
    ```
    :1201
