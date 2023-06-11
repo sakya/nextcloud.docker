@@ -34,7 +34,7 @@ Install Nextcloud in docker with mariadb, redis, cron and caddy.
 
    `mem_limit: "250M"`
 
-4. Set the local folder you want to use for the Nextcloud data
+4. Set the local folder you want to use for the Nextcloud data (both in nextcloud and in cron)
 
    `- /mnt/Volume/nextcloud/:/var/www/html/data`
 
