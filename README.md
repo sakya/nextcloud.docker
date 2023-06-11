@@ -1,5 +1,5 @@
 # nextcloud.docker
-Install Nextcloud in docker with mariadb, redis and cron.
+Install Nextcloud in docker with mariadb, redis, cron and caddy.
 
 ## Create a self signed certificate
 
