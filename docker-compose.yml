@@ -1,0 +1,85 @@
+version: '3.9'
+
+volumes:
+  nextcloud:
+  db:
+  caddydata:
+  caddyconfig:
+
+services:
+  db:
+    container_name: db
+    image: mariadb:latest
+    restart: unless-stopped
+    command: --transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW
+    mem_limit: "250M"
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=$ROOT_PASSWORD$
+      - MYSQL_PASSWORD=$MYSQL_PASSWORD$
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    restart: unless-stopped
+    command: redis-server --requirepass $REDIS_PASSWORD$
+    mem_limit: "50M"
+
+  nextcloud:
+    container_name: nextcloud
+    image: nextcloud:latest
+    restart: unless-stopped
+    mem_limit: "512M"
+    links:
+      - db
+      - redis
+    volumes:
+      - nextcloud:/var/www/html
+      - /mnt/Volume/nextcloud/:/var/www/html/data
+    environment:
+      - MYSQL_PASSWORD=$MYSQL_PASSWORD$
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_HOST=db
+      - REDIS_HOST=redis
+      - REDIS_HOST_PASSWORD=$REDIS_PASSWORD$
+      - OVERWRITEPROTOCOL=https
+      - APACHE_DISABLE_REWRITE_IP=1
+      - NEXTCLOUD_TRUSTED_DOMAINS=$YOUR_DOMAIN$
+      - TRUSTED_PROXIES=caddy
+    depends_on:
+      - db
+      - redis
+
+  cron:
+    container_name: cron
+    image: nextcloud:latest
+    restart: unless-stopped
+    mem_limit: "50M"
+    volumes:
+      - nextcloud:/var/www/html
+      - /mnt/Volume/nextcloud/:/var/www/html/data
+    entrypoint: /cron.sh
+    depends_on:
+      - db
+
+  caddy:
+    container_name: caddy
+    image: caddy:latest
+    restart: unless-stopped
+    mem_limit: "50M"
+    ports:
+      - 1201:1201
+    links:
+      - nextcloud
+    volumes:
+      - ${PWD}/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ${PWD}/caddy/certs/certificate.pem:/etc/caddy/certificate.pem
+      - ${PWD}/caddy/certs/privatekey.pem:/etc/caddy/privatekey.pem
+      - caddydata:/data
+      - caddyconfig:/config
+    depends_on:
+      - nextcloud

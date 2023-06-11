@@ -1,0 +1,3 @@
+:1201
+tls /etc/caddy/certificate.pem /etc/caddy/privatekey.pem
+reverse_proxy nextcloud:80
