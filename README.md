@@ -32,7 +32,7 @@ Install Nextcloud in docker with mariadb, redis, cron and caddy.
 
 3. Change the memory limits to something that suits your needs
 
-   `mem_limit: "250M"`
+   `mem_limit: "256M"`
 
 4. Set the local folder you want to use for the Nextcloud data (both in nextcloud and in cron)
 
