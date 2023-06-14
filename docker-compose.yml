@@ -76,9 +76,9 @@ services:
     links:
       - nextcloud
     volumes:
-      - ${PWD}/caddy/Caddyfile:/etc/caddy/Caddyfile
-      - ${PWD}/caddy/certs/certificate.pem:/etc/caddy/certificate.pem
-      - ${PWD}/caddy/certs/privatekey.pem:/etc/caddy/privatekey.pem
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/certs/certificate.pem:/etc/caddy/certificate.pem
+      - ./caddy/certs/privatekey.pem:/etc/caddy/privatekey.pem
       - caddydata:/data
       - caddyconfig:/config
     depends_on:

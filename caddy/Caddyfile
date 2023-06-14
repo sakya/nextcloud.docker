@@ -1,3 +1,4 @@
 :1201
 tls /etc/caddy/certificate.pem /etc/caddy/privatekey.pem
+header Strict-Transport-Security "max-age=15552000; includeSubDomains"
 reverse_proxy nextcloud:80
