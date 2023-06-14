@@ -1,4 +1,8 @@
 :1201
 tls /etc/caddy/certificate.pem /etc/caddy/privatekey.pem
 header Strict-Transport-Security "max-age=15552000; includeSubDomains"
+rewrite /.well-known/carddav /remote.php/dav
+rewrite /.well-known/caldav /remote.php/dav
+rewrite /.well-known/webfinger /index.php/.well-known/webfinger
+rewrite /.well-known/nodeinfo /index.php/.well-known/nodeinfo
 reverse_proxy nextcloud:80
