@@ -50,5 +50,18 @@ Use this command to create and start all the containers
 
 `docker compose up -d`
 
+## Run occ commands
 
+To run [occ](https://docs.nextcloud.com/server/stable/admin_manual/configuration_server/occ_command.html) commands
 
+`docker exec -ti --user www-data nextcloud /var/www/html/occ COMMAND`
+
+## Update Nextcloud
+
+To update Nextcloud to the most recent version:
+
+```docker compose down
+docker compose down
+docker compose pull
+docker compose up -d
+```
