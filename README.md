@@ -62,6 +62,6 @@ To update Nextcloud to the most recent version:
 
 ```docker compose down
 docker compose down
-docker compose pull
+docker compose pull nextcloud
 docker compose up -d
 ```
